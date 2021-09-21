@@ -71,7 +71,7 @@ class Sortie
     /**
      * @ORM\ManyToMany(targetEntity=Utilisateur::class, inversedBy="sorties")
      */
-    private $utilisateur;
+    private $inscrits;
 
     /**
      * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="SortiesOrganisees")
@@ -81,7 +81,7 @@ class Sortie
 
     public function __construct()
     {
-        $this->utilisateur = new ArrayCollection();
+        $this->inscrits = new ArrayCollection();
     }
 
 
@@ -202,23 +202,23 @@ class Sortie
     /**
      * @return Collection|Utilisateur[]
      */
-    public function getUtilisateur(): Collection
+    public function getInscrits(): Collection
     {
-        return $this->utilisateur;
+        return $this->inscrits;
     }
 
-    public function addUtilisateur(Utilisateur $utilisateur): self
+    public function addInscrit(Utilisateur $utilisateur): self
     {
-        if (!$this->utilisateur->contains($utilisateur)) {
-            $this->utilisateur[] = $utilisateur;
+        if (!$this->inscrits->contains($utilisateur)) {
+            $this->inscrits[] = $utilisateur;
         }
 
         return $this;
     }
 
-    public function removeUtilisateur(Utilisateur $utilisateur): self
+    public function removeInscrit(Utilisateur $utilisateur): self
     {
-        $this->utilisateur->removeElement($utilisateur);
+        $this->inscrits->removeElement($utilisateur);
 
         return $this;
     }
