@@ -222,7 +222,7 @@ class Utilisateur implements UserInterface
     {
         if (!$this->sorties->contains($sorty)) {
             $this->sorties[] = $sorty;
-            $sorty->addUtilisateur($this);
+            $sorty->addInscrit($this);
         }
 
         return $this;
@@ -231,7 +231,7 @@ class Utilisateur implements UserInterface
     public function removeSorty(Sortie $sorty): self
     {
         if ($this->sorties->removeElement($sorty)) {
-            $sorty->removeUtilisateur($this);
+            $sorty->removeInscrit($this);
         }
 
         return $this;
