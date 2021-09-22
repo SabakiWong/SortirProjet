@@ -21,6 +21,7 @@ class RegistrationFormType extends AbstractType
             ->add('prenom')
             ->add('nom')
             ->add('telephone')
+            //todo: Ajouter une liste déroulante avec les campus
             ->add('password', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller

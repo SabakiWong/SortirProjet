@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Campus;
 use App\Entity\Utilisateur;
 use App\Form\RegistrationFormType;
 use App\Security\AppAuthenticator;
@@ -22,6 +23,11 @@ class RegistrationController extends AbstractController
         $user = new Utilisateur();
         $user->setRoles(['ROLE_USER']); //todo: (vérifier la liste des roles possibles)
         $user->setIsActive(true);
+
+        $campusTest = new Campus();
+        $campusTest->setNom("CampusTest"); //todo: changer cet affectation par une liste dynamique
+
+        $user->setCampus($campusTest); //todo: Associer le campus entré par l'utilisateur
 
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
