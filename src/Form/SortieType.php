@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Campus;
 use App\Entity\Lieu;
 use App\Entity\Sortie;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -49,8 +50,10 @@ class SortieType extends AbstractType
                 'class'=> Lieu::class,
                 'choice_label'=>'nom'
             ])
-            ->add('campus', null, [
-                'label' => 'Campus :'
+            ->add('campus', EntityType::class, [
+                'label' => 'Campus :',
+                'class'=> Campus::class,
+                'choice_label'=>'nom'
             ])
 
         ;
