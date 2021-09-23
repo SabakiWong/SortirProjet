@@ -2,8 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Etat;
 use App\Entity\Sortie;
+use App\Entity\Utilisateur;
 use App\Form\SortieType;
+use App\Repository\EtatRepository;
+use App\Repository\SortieRepository;
+use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +20,13 @@ class SortieController extends AbstractController {
     /**
      * @Route ("/create" , name="sortie_create")
      */
-    public function create(Request $request, EntityManagerInterface $entityManager): Response
+    public function create(
+        Request $request,
+        EtatRepository $etatRepository,
+        SortieRepository $sortieRepository,
+        UtilisateurRepository $utilisateurRepository,
+        EntityManagerInterface $entityManager
+    ): Response
     {
         $sortie = new Sortie();
         $form = $this->createForm(SortieType::class, $sortie);
@@ -24,7 +35,16 @@ class SortieController extends AbstractController {
 
         if ($form->isSubmitted() && $form->isValid()) {
             //Hydrater les propriétés absentes du formulaire
-            //$sortie->setEtat();
+            $etat = new Etat();
+            $etat = $etatRepository->findOneBy(['id'=>1]);
+            $sortie->setEtat($etat);
+
+            $utilisateur = new Utilisateur();
+            $idUser = $this->getUser()->getId();
+            //if($utilisateur->getRoles('ROLE_ORGANISATEUR')){
+                $utilisateur = $utilisateurRepository->findOneBy(['id'=>$idUser]);
+                $sortie->setOrganisateur($utilisateur);
+           // }
 
             //Sauvegarder en bdd
             $entityManager->persist($sortie);
