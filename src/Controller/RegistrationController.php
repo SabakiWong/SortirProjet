@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Campus;
 use App\Entity\Utilisateur;
 use App\Form\RegistrationFormType;
+use App\Repository\CampusRepository;
 use App\Security\AppAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,14 +19,19 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, AppAuthenticator $authenticator): Response
+    public function register(
+        Request $request,
+        UserPasswordEncoderInterface $passwordEncoder,
+        GuardAuthenticatorHandler $guardHandler,
+        AppAuthenticator $authenticator,
+        CampusRepository $campusRepository): Response
     {
         $user = new Utilisateur();
         $user->setRoles(['ROLE_USER']); //todo: (vérifier la liste des roles possibles)
         $user->setIsActive(true);
 
         $campusTest = new Campus();
-        $campusTest->setNom("SAINT HERBLAIN"); //todo: changer cet affectation par une liste dynamique
+        $campusTest = $campusRepository->findOneBy(['id'=>1]);
 
         $user->setCampus($campusTest); //todo: Associer le campus entré par l'utilisateur
 
