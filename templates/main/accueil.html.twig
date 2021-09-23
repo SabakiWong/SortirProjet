@@ -6,6 +6,15 @@
     <section class="home">
         <div class="max-width">
              <h1>Accueil</h1>
+
+
+                <div>
+                    {% for sorties in sortie %}
+                        {{ sorties }}
+                    {% endfor %}
+                </div>
+
+
             <button><a href="{{ path('sortie_create') }}">Créer une sortie</a></button>
 
         </div>

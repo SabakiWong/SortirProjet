@@ -8,12 +8,23 @@
 
             <div>
                 {{ form_start(form) }}
-
-                {{ form_widget(form) }}
-
-                <input type="submit" value="Enregistrer">
-                <button>Publier la sortie</button>
-                <input type="reset" value="Annuler">
+                <div class="left">
+                    {{ form_row(form.nom) }}
+                    {{ form_row(form.dateHeureDebut) }}
+                    {{ form_row(form.duree) }}
+                    {{ form_row(form.dateLimiteInscription) }}
+                    {{ form_row(form.nbInscriptionsMax) }}
+                    {{ form_row(form.infosSortie) }}
+                </div>
+                <div class="right">
+                    {{ form_row(form.campus) }}
+                    {{ form_row(form.lieu) }}
+                </div>
+                <div class="button">
+                    <input type="submit" value="Enregistrer">
+                    <a href="{{ path('publierSortie_publish') }}" title="Publier">Publier la sortie</a>
+                    <input type="reset" value="Annuler">
+                </div>
 
                 {{ form_end(form) }}
             </div>

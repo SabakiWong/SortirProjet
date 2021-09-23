@@ -19,6 +19,15 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
+    public function findPublishedSortie(): ?array{
+        //Créer un QueryBuilder et attribuer l'alias s à sortie
+        $queryBuilder = $this->createQueryBuilder('s');
+        $queryBuilder->addOrderBy('s.dateHeureDebut', 'DESC');
+        $query = $queryBuilder->getQuery();
+        $results = $query->getResult();
+        return $results;
+    }
+
     // /**
     //  * @return Sortie[] Returns an array of Sortie objects
     //  */
