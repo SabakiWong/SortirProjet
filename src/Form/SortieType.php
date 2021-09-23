@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Lieu;
 use App\Entity\Sortie;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -27,10 +29,9 @@ class SortieType extends AbstractType
                 'widget' => 'single_text',
                 'label'=>'Date et heure de la sortie :'
             ])
-            ->add('duree', TimeType::class, [
-                'html5' => true,
-                'widget' => 'single_text',
-                'label'=>'Durée :'
+            ->add('duree', IntegerType::class, [
+                'label'=>'Durée (min) :',
+
             ])
             ->add('dateLimiteInscription', DateType::class, [
                 'html5' => true,
@@ -43,8 +44,10 @@ class SortieType extends AbstractType
             ->add('infosSortie', TextareaType::class, [
                 'label'=>'Description et infos :'
             ])
-            ->add('lieu', ChoiceType::class, [
-                'label'=>'Lieu :'
+            ->add('lieu', EntityType::class, [
+                'label'=>'Lieu :',
+                'class'=> Lieu::class,
+                'choice_label'=>'nom'
             ])
             ->add('campus', null, [
                 'label' => 'Campus :'

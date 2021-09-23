@@ -24,7 +24,7 @@ class SortieController extends AbstractController {
 
         if ($form->isSubmitted() && $form->isValid()) {
             //Hydrater les propriétés absentes du formulaire
-            $sortie->setEtat();
+            //$sortie->setEtat();
 
             //Sauvegarder en bdd
             $entityManager->persist($sortie);
