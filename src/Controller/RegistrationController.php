@@ -31,9 +31,9 @@ class RegistrationController extends AbstractController
         $user->setIsActive(true);
 
         $campusTest = new Campus();
-        $campusTest = $campusRepository->findOneBy(['id'=>1]);
+        $campusTest = $campusRepository->findOneBy(['id'=>3]);
 
-        $user->setCampus($campusTest); //todo: Associer le campus entré par l'utilisateur
+        $user->setCampus($campusTest); //todo: Créer une liste déroulante pour associer le campus entré par l'utilisateur
 
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);

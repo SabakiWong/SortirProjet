@@ -1,9 +1,40 @@
 .navbar {
     position: relative;
 }
-
-#login_form {
-    margin-top: 4em;
+body {
+    height: 100%;
 }
 
-/*todo: faire le css de la page de login */
+h1{
+    margin: 1.5em;
+}
+
+form {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+#login_form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 4em;
+    text-align: center;
+    justify-content: center;
+    width: 400px;
+}
+
+
+.form_element {
+    text-align: end;
+}
+
+input {
+
+}
+button {
+    align-self: center;
+    margin-top: 2.5em;
+    width: 50%;
+}
+
+/*todo: détails à travailler après la mise en place de la fonctionnalité se souvenir de moi
