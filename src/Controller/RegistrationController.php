@@ -25,7 +25,7 @@ class RegistrationController extends AbstractController
         $user->setIsActive(true);
 
         $campusTest = new Campus();
-        $campusTest->setNom("CampusTest"); //todo: changer cet affectation par une liste dynamique
+        $campusTest->setNom("SAINT HERBLAIN"); //todo: changer cet affectation par une liste dynamique
 
         $user->setCampus($campusTest); //todo: Associer le campus entré par l'utilisateur
 
