@@ -29,21 +29,25 @@ class MonProfilController extends AbstractController
     public function profil(Request $request, EntityManagerInterface $entityManager, string $photoDir,
                            UtilisateurRepository $utilisateurRepository):Response
     {
+        //Récupère les données de l'utilisateur dans la base de données
         $idUser = $this->getUser()->getId();
         $userBase = $utilisateurRepository->find($idUser);
-        $userForm= new Utilisateur();
-        dd($userBase);
-        $userForm->setNom($userBase->getNom());
-        $userForm->setPrenom($userBase->getPrenom());
 
+        $userForm= new Utilisateur();
+
+        //Pour test
+        //dd($userBase);
+        $userForm->setId($userBase->getId());
+        $userForm->setPseudo($userBase->getPseudo());
+        $userForm->setPrenom($userBase->getPrenom());
+        $userForm->setNom($userBase->getNom());
+        $userForm->setTelephone($userBase->getTelephone());
+        $userForm->setEmail($userBase->getEmail());
+        $userForm->setCampus($userBase->getCampus());
+
+        var_dump($userForm);
         $profilForm = $this->createForm(GererMonProfilType::class, $userForm);
 
-        //Récupération des données de l'utilisateur de la BDD
-        $nom = $profilForm->get('nom')->getData();
-
-        //$profilForm->get($user)->get('pseudo')->se;
-
-        // $user = $utilisateurRepository -> afficherUtilisateur();
 
 
         //Traitement du formulaire
@@ -51,8 +55,10 @@ class MonProfilController extends AbstractController
 
         if($profilForm->isSubmitted())
         {
-            $entityManager->persist($profilForm);
-            $entityManager->flush();
+            $utilisateurRepository->upgradeuser($userForm);
+            // $entityManager->persist($profilForm);
+          // $entityManager->flush();
+
 
             $this->addFlash('success', 'Votre profil à bien été modifié !');
             /* if ($photo = $profilForm['photo']->getData())

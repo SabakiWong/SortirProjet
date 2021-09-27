@@ -35,8 +35,21 @@ class UtilisateurRepository extends ServiceEntityRepository implements PasswordU
         $this->_em->persist($user);
         $this->_em->flush();
     }
-
-
+    public function upgradeuser(Utilisateur $user): void
+    {
+        $modifications = $this->createQueryBuilder('m');
+        $modifications->update(Utilisateur::class, 'm');
+        //var_dump($user->getId());
+        $modifications->set('m.nom','?1'); //'?a' param1
+        $modifications->set('m.prenom','?1');
+        //WHERE = FILTRE DE TA REQUETE
+        $modifications->where('m.id= ?2');//'?b' param2 filtre pour changer les params d'1 utilisateur par l'id
+        $modifications->setParameter(1,$user->getNom());// parma1 c'est user->getnom de ta form
+        $modifications->setParameter(3,$user->getPrenom());
+        $modifications->setParameter(2,$user->getId());
+        $exec =$modifications->getQuery();
+        $exec->execute();
+    }
 
 
     // /**

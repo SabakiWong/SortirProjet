@@ -2,7 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Campus;
 use App\Entity\Utilisateur;
+use Container7xAvKtY\getCampusRepositoryService;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -45,25 +48,22 @@ class GererMonProfilType extends AbstractType
                 'second_options' => ['label' => 'Confirmation'],
             ])
 
-            //todo:Changer les sorties
-            ->add('campus', ChoiceType::class,[
+
+            ->add('campus', EntityType::class, [
                 'label' => 'Campus :',
-                'choices' =>[
-                    'Rennes' =>'Rennes',
-                    'Saint Herblain' =>'Saint Herblain',
-                    'Niort' => 'Niort',
-                    'Quimper' => 'Quimper'
-                ]
+                'class'=> Campus::class,
+                'choice_label'=>'nom'
             ])
-            ->add('photo', FileType::class,[
+           /* ->add('photo', FileType::class,[
                'mapped'=>false,
                 'constraints' => [
                       new Image(['maxSize' => '1024k'])
                     ],
-           ])
+           ])*/
 
             ->add('enregistrer', SubmitType::class, [
                 'label'=>'Enregistrer'
+
             ])
 
         ;
