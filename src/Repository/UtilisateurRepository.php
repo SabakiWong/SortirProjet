@@ -36,6 +36,15 @@ class UtilisateurRepository extends ServiceEntityRepository implements PasswordU
         $this->_em->flush();
     }
 
+    public function afficherUtilisateur ()
+    {
+        $QueryBuilder = $this-> createQueryBuilder('u');
+        $query= $QueryBuilder -> getQuery();
+        $resultat = $query->getResult();
+        return $resultat;
+
+    }
+
     // /**
     //  * @return Utilisateur[] Returns an array of Utilisateur objects
     //  */
@@ -64,4 +73,5 @@ class UtilisateurRepository extends ServiceEntityRepository implements PasswordU
         ;
     }
     */
+
 }

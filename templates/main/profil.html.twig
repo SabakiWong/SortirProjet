@@ -14,15 +14,13 @@
             {{ form_row(profilForm.telephone) }}
             {{ form_row(profilForm.email) }}
             {{ form_row(profilForm.password) }}
-            <div class="flex-box">
-                <label for=	"Confirmation_mdp" >Confirmation: </label>
-                <input type="password" id="confirmation" name="confirmation" value="">
-            </div>
-
             {{ form_row(profilForm.campus) }}
+
+            {{ form_row(profilForm.enregistrer) }}
             <div class="flex-box btn-container">
-                <input type="submit" name="enregistrer" class="btn btn-primary" value ="Enregistrer">
-                <input type="submit" name ="annuler" class="btn btn-primary" value="Annuler">
+                <input type="reset">
+                <button><a href="{{ path('main_accueil') }}">Annuler</a></button>
+              <!--  <input type="submit" name ="annuler" class="btn btn-primary" value="Annuler" href="{{ path('main_accueil') }}">-->
             </div>
             {{ form_end(profilForm) }}
 

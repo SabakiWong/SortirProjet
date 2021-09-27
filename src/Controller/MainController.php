@@ -4,10 +4,18 @@ namespace App\Controller;
 
 use App\Entity\Utilisateur;
 use App\Form\GererMonProfilType;
+
+
+use App\Repository\UtilisateurRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Twig\Profiler\Profile;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class MainController extends AbstractController
 {
@@ -19,17 +27,7 @@ class MainController extends AbstractController
          return $this->render('main/accueil.html.twig');
      }
 
-    /**
-     * @Route("/profil", name="main_profil")
-     */
-    public function profil() {
-        $utilisateur = new Utilisateur();
-        //appel l'utilisateur
-        $profilForm = $this->createForm(GererMonProfilType::class, $utilisateur);
-        return $this->render('main/profil.html.twig', [
-            'profilForm'=> $profilForm->createView()
-        ]);
-    }
+
 
 
 }

@@ -14,7 +14,7 @@
             {% if app.user %}
                 <li><a href="#" title="villes">Villes</a></li>
                 <li><a href="#" title="campus">Campus</a></li>
-                <li><a href="{{ path('main_profil') }}" title="profil">Mon profil</a></li>
+                <li><a href="{{ path('profil') }}" title="profil">Mon profil</a></li>
                 <li><a href="{{ path('app_logout') }}" title="déconnexion">Se déconnecter</a></li>
             {% else %}
             <li><a href="{{ path('app_login') }}" title="connexion">Se connecter</a></li>
