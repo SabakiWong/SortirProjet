@@ -23,7 +23,7 @@ class UtilisateurRepository extends ServiceEntityRepository implements PasswordU
     }
 
     /**
-     * Used to upgrade (rehash) the user's password automatically over time.
+     * sert à recrypter le mdp
      */
     public function upgradePassword(UserInterface $user, string $newHashedPassword): void
     {
@@ -36,14 +36,8 @@ class UtilisateurRepository extends ServiceEntityRepository implements PasswordU
         $this->_em->flush();
     }
 
-    public function afficherUtilisateur ()
-    {
-        $QueryBuilder = $this-> createQueryBuilder('u');
-        $query= $QueryBuilder -> getQuery();
-        $resultat = $query->getResult();
-        return $resultat;
 
-    }
+
 
     // /**
     //  * @return Utilisateur[] Returns an array of Utilisateur objects

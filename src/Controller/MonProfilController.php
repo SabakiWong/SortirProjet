@@ -29,19 +29,19 @@ class MonProfilController extends AbstractController
     public function profil(Request $request, EntityManagerInterface $entityManager, string $photoDir,
                            UtilisateurRepository $utilisateurRepository):Response
     {
-        //$user = $this->getUser();
-        $user= new Utilisateur();
-        //$user  = $utilisateurRepository -> afficherUtilisateur();
-        $user = $utilisateurRepository->find(0);
-       // $user->
-        $user  = $utilisateurRepository -> afficherUtilisateur()[0] ;
+        $idUser = $this->getUser()->getId();
+        $userBase = $utilisateurRepository->find($idUser);
+        $userForm= new Utilisateur();
+        dd($userBase);
+        $userForm->setNom($userBase->getNom());
+        $userForm->setPrenom($userBase->getPrenom());
 
-        var_dump($user);
-        //appel l'utilisateur
-        $profilForm = $this->createForm(GererMonProfilType::class, $user);
+        $profilForm = $this->createForm(GererMonProfilType::class, $userForm);
 
         //Récupération des données de l'utilisateur de la BDD
+        $nom = $profilForm->get('nom')->getData();
 
+        //$profilForm->get($user)->get('pseudo')->se;
 
         // $user = $utilisateurRepository -> afficherUtilisateur();
 
@@ -69,8 +69,7 @@ class MonProfilController extends AbstractController
         }
         return $this->render('main/profil.html.twig', [
             'profilForm'=> $profilForm->createView(),
-            'user'=> $user
-
+            'user'=> $userForm
         ]);
     }
 }
