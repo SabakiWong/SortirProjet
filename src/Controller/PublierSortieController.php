@@ -13,15 +13,20 @@ use Symfony\Component\Routing\Annotation\Route;
 class PublierSortieController extends AbstractController
 {
     /**
-     * @Route ("/publish/{id}" , name="publierSortie_publish")
+     * @Route ("/publish" , name="publierSortie_publish")
      */
     public function publish(
         EtatRepository $etatRepository,
-        SortieRepository $sortieRepository,
-        int $id
+        SortieRepository $sortieRepository
     ): Response{
-        //On récupère la sortie enregistrée par son id
-        $sortie = $sortieRepository->findOneBy(['id'=>$id]);
+        $sortie = new Sortie();
+
+        //On récupère la dernière sortie enregistrée par son id
+        $sortie = $sortieRepository->findCreatedSortie();
+
+        //findBy([], ['id'=>'desc'],1, 0);
+      //  $sortie = $sortieRepository->findOneBy(['id'=>$id]);
+
 
         //Changement de l'état de la sortie
         $etat = new Etat();

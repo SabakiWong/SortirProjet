@@ -19,13 +19,17 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
-    public function findPublishedSortie(): ?array{
-        //Créer un QueryBuilder et attribuer l'alias s à sortie
-        $queryBuilder = $this->createQueryBuilder('s');
-        $queryBuilder->addOrderBy('s.dateHeureDebut', 'DESC');
-        $query = $queryBuilder->getQuery();
-        $results = $query->getResult();
-        return $results;
+    public function findCreatedSortie(){
+        //Requête DQL
+        $entityManager = $this->getEntityManager();
+        $dql = "
+                SELECT s
+                FROM App\Entity\Sortie s
+                ORDER BY s.id DESC
+                ";
+        $query = $entityManager->createQuery($dql);
+        $query->setMaxResults(1);
+        return $query->getOneOrNullResult();
     }
 
     // /**
