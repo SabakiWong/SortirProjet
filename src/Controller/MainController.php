@@ -4,27 +4,23 @@ namespace App\Controller;
 
 use App\Entity\Utilisateur;
 use App\Form\GererMonProfilType;
-
-
-use App\Repository\UtilisateurRepository;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\SortieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Twig\Profiler\Profile;
 
 class MainController extends AbstractController
 {
     /**
      * @Route("/", name="main_accueil")
      */
-     public function accueil() {
+     public function accueil(SortieRepository $sortieRepository) {
+         $sorties = $sortieRepository->findAll();
 
-         return $this->render('main/accueil.html.twig');
+         return $this->render('main/accueil.html.twig', [
+             'sorties'=>$sorties
+         ]);
      }
 
 

@@ -39,27 +39,37 @@ class SortieController extends AbstractController {
             $etat = $etatRepository->findOneBy(['id'=>1]);
             $sortie->setEtat($etat);
 
-            $utilisateur = new Utilisateur();
-            $idUser = $this->getUser()->getId();
-            //if($utilisateur->getRoles('ROLE_ORGANISATEUR')){
-                $utilisateur = $utilisateurRepository->findOneBy(['id'=>$idUser]);
-                $sortie->setOrganisateur($utilisateur);
-           // }
-
-            //Sauvegarder en bdd
-            $entityManager->persist($sortie);
-            $entityManager->flush();
+            $this->creationSortie($utilisateurRepository, $sortie, $entityManager);
 
             //Affichage d'un message de succès
             $this->addFlash('success', 'La sortie a bien été ajoutée !');
 
             //Redirection vers la page d'accueil
-            return $this->redirectToRoute('main_accueil');
+            //return $this->redirectToRoute('main_accueil');
         }
 
         //Affichage du formulaire
         return $this->render('sortie/create.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @param UtilisateurRepository $utilisateurRepository
+     * @param Sortie $sortie
+     * @param EntityManagerInterface $entityManager
+     */
+    public function creationSortie(UtilisateurRepository $utilisateurRepository, Sortie $sortie, EntityManagerInterface $entityManager): void
+    {
+        $utilisateur = new Utilisateur();
+        $idUser = $this->getUser()->getId();
+        //if($utilisateur->getRoles('ROLE_ORGANISATEUR')){
+        $utilisateur = $utilisateurRepository->findOneBy(['id' => $idUser]);
+        $sortie->setOrganisateur($utilisateur);
+        // }
+
+        //Sauvegarder en bdd
+        $entityManager->persist($sortie);
+        $entityManager->flush();
     }
 }
