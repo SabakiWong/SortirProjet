@@ -13,21 +13,27 @@ use Symfony\Component\Routing\Annotation\Route;
 class PublierSortieController extends AbstractController
 {
     /**
-     * @Route ("/publish" , name="publierSortie_publish")
+     * @Route ("/publish/{id}" , name="publierSortie_publish")
      */
-    public function publish(EtatRepository $etatRepository, SortieRepository $sortieRepository): Response{
-        //Hydrater les propriétés absentes du formulaire
-        $sortie = new Sortie();
+    public function publish(
+        EtatRepository $etatRepository,
+        SortieRepository $sortieRepository,
+        int $id
+    ): Response{
+        //On récupère la sortie enregistrée par son id
+        $sortie = $sortieRepository->findOneBy(['id'=>$id]);
+
+        //Changement de l'état de la sortie
         $etat = new Etat();
         $etat = $etatRepository->findOneBy(['id'=>2]);
         $sortie->setEtat($etat);
 
-        //Chercher les sorties dans la BDD
-        $sortie = $sortieRepository->findPublishedSortie();
+        $manager = $this->getDoctrine()->getManager();
+        $manager->persist($sortie);
+        $manager->flush();
 
-        return $this->render('main/accueil.html.twig', [
-            "sortie" => $sortie
-        ]);
+
+        return $this->redirectToRoute('main_accueil');
 
     }
 }
