@@ -31,7 +31,16 @@ form {
 input {
 
 }
+
+#bas_formulaire {
+    display: flex; /*todo: fucking vérifier pourquoi n'est pas associé */
+}
+
+#remember_element {
+    width: 50%;
+}
 button {
+    display: flex;
     align-self: center;
     margin-top: 2.5em;
     width: 50%;
