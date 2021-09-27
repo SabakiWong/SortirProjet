@@ -35,8 +35,7 @@ class MonProfilController extends AbstractController
 
         $userForm= new Utilisateur();
 
-        //Pour test
-        //dd($userBase);
+
         $userForm->setId($userBase->getId());
         $userForm->setPseudo($userBase->getPseudo());
         $userForm->setPrenom($userBase->getPrenom());
@@ -45,7 +44,7 @@ class MonProfilController extends AbstractController
         $userForm->setEmail($userBase->getEmail());
         $userForm->setCampus($userBase->getCampus());
 
-        var_dump($userForm);
+
         $profilForm = $this->createForm(GererMonProfilType::class, $userForm);
 
 
