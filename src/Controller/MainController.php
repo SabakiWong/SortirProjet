@@ -16,8 +16,10 @@ class MainController extends AbstractController
      * @Route("/", name="main_accueil")
      */
      public function accueil(SortieRepository $sortieRepository) {
-         $sorties = $sortieRepository->findAll();
 
+
+         //On récupère les sorties par ordre chronologique
+         $sorties = $sortieRepository->findBy([],['dateHeureDebut'=>'DESC']);
 
 
          return $this->render('main/accueil.html.twig', [

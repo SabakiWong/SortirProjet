@@ -33,23 +33,21 @@ class SortieRepository extends ServiceEntityRepository
     }
 
 
+    //Cette fontion me permet de récupérer un array de sorties filtrées
+    //Elle va recevoir comme argument un array de conditions
+    public function findSortiePar() {
+        //Avec le QueryBuilder
 
+        $queryBuilder = $this->createQueryBuilder('s'); //Je passe l'alias de l'entité
+        $queryBuilder->andWhere();
+        $queryBuilder->orderBy('s.dateHeureDebut', 'DESC');
+        $query = $queryBuilder->getQuery();
 
-//    /**
-//     * @param $value
-//     * @return Sortie[] Returns an array of Sortie objects
-//     */
-//    public function findByExampleField($value)
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('s.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+        $query->setMaxResults(10);
+        $results = $query->getResult();
+
+        return $results;
+    }
 
 
     /*

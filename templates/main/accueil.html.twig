@@ -5,8 +5,8 @@
 
 {% block body %}
     <section id="date-et-participant">
-        <p>Date: du jour: </p>
-        <p>Participant: </p>
+        <p>Date du jour: {{ "now"|date("d/m/Y", "Europe/Paris") }}</p>
+        <p>Participant: {{ app.user.nom}} </p>
     </section>
 
     <section id="recherche">
@@ -32,12 +32,12 @@
             {% for sortie in sorties %}
                 <tr>
                     <td>{{ sortie.nom }}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{ sortie.dateHeureDebut|date("d/m/Y", "Europe/Paris") }}</td>
+                    <td>{{ sortie.dateLimiteInscription|date("d/m/Y", "Europe/Paris") }}</td>
+                    <td> à faire</td>
+                    <td>{{ sortie.etat.libelle }}</td>
+                    <td>Oui</td> {# todo: dynamiser la liste #}
+                    <td>{{ sortie.organisateur.nom }}</td>
                     <td><a href="#afficherUneSortie">Afficher</a></td>
                 </tr>
             {% endfor %}
