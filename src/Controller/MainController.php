@@ -18,6 +18,8 @@ class MainController extends AbstractController
      public function accueil(SortieRepository $sortieRepository) {
          $sorties = $sortieRepository->findAll();
 
+
+
          return $this->render('main/accueil.html.twig', [
              'sorties'=>$sorties
          ]);
