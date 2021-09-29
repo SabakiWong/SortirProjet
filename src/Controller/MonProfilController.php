@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class MonProfilController extends AbstractController
 {
@@ -27,7 +28,7 @@ class MonProfilController extends AbstractController
      * @Route("/profil", name="profil")
      */
     public function profil(Request $request, EntityManagerInterface $entityManager, string $photoDir,
-                           UtilisateurRepository $utilisateurRepository):Response
+                           UtilisateurRepository $utilisateurRepository, UserPasswordEncoderInterface $passwordEncoder):Response
     {
         //Récupère les données de l'utilisateur dans la base de données
         $idUser = $this->getUser()->getId();
@@ -45,18 +46,33 @@ class MonProfilController extends AbstractController
         $userForm->setCampus($userBase->getCampus());
 
 
-        $profilForm = $this->createForm(GererMonProfilType::class, $userForm);
+        $profilForm = $this->createForm(GererMonProfilType::class, $userForm );
 
 
 
         //Traitement du formulaire
         $profilForm->handleRequest($request);
 
-        if($profilForm->isSubmitted())
+        if($profilForm->isSubmitted() )
         {
-            $utilisateurRepository->upgradeuser($userForm);
+
+            $utilisateurRepository->upgradeUser($userForm);
+            var_dump($userForm);
+           if (!$userForm->PasswordEmpty())
+           {
+               // encode the plain password
+                    $userForm->setPassword(
+                        $passwordEncoder->encodePassword($userForm, $userForm->getPassword()
+                        ));
+
+                    $utilisateurRepository->upgradeMDP($userForm);
+
+               var_dump($userForm);
+            }
+
             // $entityManager->persist($profilForm);
           // $entityManager->flush();
+
 
 
             $this->addFlash('success', 'Votre profil à bien été modifié !');

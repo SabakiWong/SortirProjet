@@ -6,6 +6,7 @@ use App\Repository\UtilisateurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -143,7 +144,20 @@ class Utilisateur implements UserInterface
      */
     public function getPassword(): string
     {
-        return $this->password;
+
+        {
+            return $this->password;
+        }
+    }
+    public function PasswordEmpty():Bool
+    {
+         if ( $this->password == null)
+        {
+             return true;
+         } else
+        {
+            return false;
+        }
     }
 
     public function setPassword(string $password): self
