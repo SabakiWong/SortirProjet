@@ -25,6 +25,14 @@
                   <a href="{{ path('publierSortie_publish')}}" title="Publier">Publier la sortie</a>
                     <input type="reset" value="Annuler">
                 </div>
+                {# read and display all flash messages #}
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="flash flash-{{ label }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
 
                 {{ form_end(form) }}
             </div>
