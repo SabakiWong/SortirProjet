@@ -19,7 +19,7 @@ class MonProfilController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('mon_profil/index.html.twig', [
+        return $this->render('mon_profil/cancel.html.twig', [
             'controller_name' => 'MonProfilController',
         ]);
     }
