@@ -32,6 +32,7 @@ class GererMonProfilType extends AbstractType
             ])
             ->add('nom', TextType::class,[
                 'label' => 'Nom :'
+
             ])
             ->add('telephone', TelType::class,[
                 'label' => 'Telephone :'
@@ -39,14 +40,14 @@ class GererMonProfilType extends AbstractType
             ->add('email', EmailType::class,[
                 'label' => 'Email :'
             ])
-            ->add('password', RepeatedType::class,[
+           /* ->add('password', RepeatedType::class,[
                 'type' => PasswordType::class,
                 'invalid_message' => 'The password fields must match.',
                 'options' => ['attr' => ['class' => 'password-field']],
-                'required' => true,
-                'first_options'  => ['label' => 'Mot de passe'],
-                'second_options' => ['label' => 'Confirmation'],
-            ])
+                'required' => false,
+                'first_options'  => ['label' => 'Mot de passe :'],
+                'second_options' => ['label' => 'Confirmation :'],
+            ])*/
 
 
             ->add('campus', EntityType::class, [
@@ -61,10 +62,8 @@ class GererMonProfilType extends AbstractType
                     ],
            ])*/
 
-            ->add('enregistrer', SubmitType::class, [
-                'label'=>'Enregistrer'
 
-            ])
+
 
         ;
     }

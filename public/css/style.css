@@ -98,7 +98,10 @@ section h1{
 input,
 textarea,
 #sortie_campus,
-#sortie_lieu{
+#sortie_lieu,
+#gerer_mon_profil_campus
+{
+
     padding: 7px;
     box-sizing : border-box;
     border: 1px solid grey;

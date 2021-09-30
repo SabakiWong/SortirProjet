@@ -30,23 +30,51 @@ class UtilisateurRepository extends ServiceEntityRepository implements PasswordU
         if (!$user instanceof Utilisateur) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', \get_class($user)));
         }
-
+        //le user récupère le mdp haché
         $user->setPassword($newHashedPassword);
+        //Permet de mettre le user à jour
         $this->_em->persist($user);
         $this->_em->flush();
     }
-    public function upgradeuser(Utilisateur $user): void
+    //fonction pour modifier les données de l'utilisateur (sauf le mdp)
+    public function upgradeUser(Utilisateur $user): void
+    {
+        //équivalent à une requête SQL
+        $modifications = $this->createQueryBuilder('m');
+        //
+        $modifications->update(Utilisateur::class, 'm');
+        //var_dump($user->getId());
+
+        $modifications->set('m.pseudo','?2'); //'?a' param1
+        $modifications->set('m.telephone','?3');
+        $modifications->set('m.email','?4');
+
+        //WHERE = FILTRE DE TA REQUETE
+        $modifications->where('m.id= ?1');//'?b' param2 filtre pour changer les params d'1 utilisateur par l'id
+
+        $modifications->setParameter(1,$user->getId());
+        $modifications->setParameter(2,$user->getPseudo());// parma1 c'est user->getPseudo de ta form
+        $modifications->setParameter(3,$user->getTelephone());
+        $modifications->setParameter(4,$user->getEmail());
+
+        //
+        $exec =$modifications->getQuery();
+        $exec->execute();
+    }
+    //fonction pour modifier le mdp
+    public function upgradeMDP(Utilisateur $user): void
     {
         $modifications = $this->createQueryBuilder('m');
         $modifications->update(Utilisateur::class, 'm');
         //var_dump($user->getId());
-        $modifications->set('m.nom','?1'); //'?a' param1
-        $modifications->set('m.prenom','?1');
+
+        $modifications->set('m.password','?5');
         //WHERE = FILTRE DE TA REQUETE
-        $modifications->where('m.id= ?2');//'?b' param2 filtre pour changer les params d'1 utilisateur par l'id
-        $modifications->setParameter(1,$user->getNom());// parma1 c'est user->getnom de ta form
-        $modifications->setParameter(3,$user->getPrenom());
-        $modifications->setParameter(2,$user->getId());
+        $modifications->where('m.id= ?1');//'?b' param2 filtre pour changer les params d'1 utilisateur par l'id
+
+        $modifications->setParameter(1,$user->getId());
+        $modifications->setParameter(5,$user->getPassword());
+
         $exec =$modifications->getQuery();
         $exec->execute();
     }
