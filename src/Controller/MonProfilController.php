@@ -31,51 +31,39 @@ class MonProfilController extends AbstractController
                            UtilisateurRepository $utilisateurRepository, UserPasswordEncoderInterface $passwordEncoder):Response
     {
         //Récupère les données de l'utilisateur dans la base de données
-        $idUser = $this->getUser()->getId();
-        $userBase = $utilisateurRepository->find($idUser);
-
-        $userForm= new Utilisateur();
+        $user = $this->getUser();
 
 
-        $userForm->setId($userBase->getId());
-        $userForm->setPseudo($userBase->getPseudo());
-        $userForm->setPrenom($userBase->getPrenom());
-        $userForm->setNom($userBase->getNom());
-        $userForm->setTelephone($userBase->getTelephone());
-        $userForm->setEmail($userBase->getEmail());
-        $userForm->setCampus($userBase->getCampus());
-
-
-        $profilForm = $this->createForm(GererMonProfilType::class, $userForm );
-
-
+        //On affiche les données dans le formulaire pour modifier le profil
+        $profilForm = $this->createForm(GererMonProfilType::class, $user );
 
         //Traitement du formulaire
         $profilForm->handleRequest($request);
 
-        if($profilForm->isSubmitted() )
+        //si on appui sur enregistrer
+        if($profilForm->isSubmitted() && $profilForm->isValid() )
         {
 
-            $utilisateurRepository->upgradeUser($userForm);
-            var_dump($userForm);
-           if (!$userForm->PasswordEmpty())
+          /*  dd($profilForm->get('password')->getData());
+           if ($profilForm->get('password')->getData())
            {
                // encode the plain password
-                    $userForm->setPassword(
-                        $passwordEncoder->encodePassword($userForm, $userForm->getPassword()
+               $user->setPassword(
+                        $passwordEncoder->encodePassword($user, $user->getPassword()
                         ));
+                    //rentre le mdp haché dans l'utilisateurRepository afin d'être envoyé dans la base de données
+                    $utilisateurRepository->upgradeMDP($user);
 
-                    $utilisateurRepository->upgradeMDP($userForm);
+               //var_dump($userForm);
+            }*/
 
-               var_dump($userForm);
-            }
-
-            // $entityManager->persist($profilForm);
-          // $entityManager->flush();
+           $entityManager->persist($user);
+           $entityManager->flush();
 
 
-
+            //message pour dire que le profil est modifié
             $this->addFlash('success', 'Votre profil à bien été modifié !');
+
             /* if ($photo = $profilForm['photo']->getData())
               {
                   //Il enregistre la photo dans un fichier
@@ -87,10 +75,18 @@ class MonProfilController extends AbstractController
                                      // unable to upload the photo, give up
                                   }
               }*/
+
+        }
+        else
+        {
+            //message pour dire que le profil est modifié
+            $this->addFlash('error', 'Votre profil ne peux être modifié !');
         }
         return $this->render('main/profil.html.twig', [
             'profilForm'=> $profilForm->createView(),
-            'user'=> $userForm
+            'user'=> $user
         ]);
+
     }
+
 }

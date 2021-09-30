@@ -30,15 +30,18 @@ class UtilisateurRepository extends ServiceEntityRepository implements PasswordU
         if (!$user instanceof Utilisateur) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', \get_class($user)));
         }
-
+        //le user récupère le mdp haché
         $user->setPassword($newHashedPassword);
+        //Permet de mettre le user à jour
         $this->_em->persist($user);
         $this->_em->flush();
     }
-    //
+    //fonction pour modifier les données de l'utilisateur (sauf le mdp)
     public function upgradeUser(Utilisateur $user): void
     {
+        //équivalent à une requête SQL
         $modifications = $this->createQueryBuilder('m');
+        //
         $modifications->update(Utilisateur::class, 'm');
         //var_dump($user->getId());
 
@@ -54,10 +57,11 @@ class UtilisateurRepository extends ServiceEntityRepository implements PasswordU
         $modifications->setParameter(3,$user->getTelephone());
         $modifications->setParameter(4,$user->getEmail());
 
-
+        //
         $exec =$modifications->getQuery();
         $exec->execute();
     }
+    //fonction pour modifier le mdp
     public function upgradeMDP(Utilisateur $user): void
     {
         $modifications = $this->createQueryBuilder('m');
