@@ -1,0 +1,31 @@
+#recherche {
+    display: flex;
+}
+
+.div-filtre {
+    width: 40%;
+}
+
+#checkbox_div {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+
+}
+
+#tableau-sorties {
+    width: 50%;
+}
+
+#liste-sorties tr td{
+    width: 5%;
+    border: solid;
+    border-width: thin;
+    border-color: black;
+    padding: 5px;
+    text-align: start;
+}
+
+#liste-sorties thead td {
+    background-color: #AAAAAA;
+}
