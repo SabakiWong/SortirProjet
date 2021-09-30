@@ -76,6 +76,29 @@ class SortieRepository extends ServiceEntityRepository
         return $results;
     }
 
+    public function findSortieToCancel(){
+        //Requête QueryBuilder
+        $queryBuilder = $this->createQueryBuilder('s');
+        $queryBuilder->join("s.campus", "c");
+        $queryBuilder->join("s.lieu", "l");
+        $queryBuilder->join("l.ville", "v");
+        $queryBuilder->addSelect('c', 'l', 'v');
+        $queryBuilder->where("s.id = 3");
+        $query = $queryBuilder->getQuery();
+        return $query->getResult();
+
+
+
+        //Requête DQL
+        //$entityManager = $this->getEntityManager();
+        //$dql = "
+               // SELECT s.nom, s.dateHeureDebut, s.campus, s.lieu, s.motif
+                //FROM App\Entity\Sortie s
+              //  ";
+        //$query = $entityManager->createQuery($dql);
+       // return $query->getResult();
+    }
+
 
     /*
     public function findOneBySomeField($value): ?Sortie
