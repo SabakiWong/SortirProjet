@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Data\InfoRecherche;
 use App\Entity\Sortie;
+use App\Entity\Utilisateur;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -33,13 +35,38 @@ class SortieRepository extends ServiceEntityRepository
     }
 
 
-    //Cette fontion me permet de récupérer un array de sorties filtrées
-    //Elle va recevoir comme argument un array de conditions
-    public function findSortiePar() {
-        //Avec le QueryBuilder
+    /**
+     * Cette fontction récupère les sorties reliées à une recherche
+     * @return Sortie[]
+     */
+    public function findSortie(InfoRecherche $infoRecherche) : array {
 
         $queryBuilder = $this->createQueryBuilder('s'); //Je passe l'alias de l'entité
-        $queryBuilder->andWhere();
+
+        $queryBuilder->select('s');
+
+        //Filtrage par campus
+        $queryBuilder = $queryBuilder
+            ->andWhere('s.campus = :idCampus')
+            ->setParameter('idCampus', $infoRecherche->campus);
+
+        //Si l'utilisateur rentre quelquechose dans la barre de recherche
+        if (!empty($infoRecherche->motCle)) {
+            $queryBuilder = $queryBuilder
+                ->andWhere('s.nom LIKE :motCle')
+                ->setParameter('motCle', "%{$infoRecherche->motCle}%");
+        }
+
+        //Si l'utilisateur coche la case d'organisateur
+        if ($infoRecherche->estOrganisateur == true) {
+
+            //$user->getId(); Utilisateur $user
+
+            $queryBuilder = $queryBuilder
+                ->andWhere('s.campus.id = :idCampus')
+                ->setParameter('idCampus', $infoRecherche->campus);
+        }
+        //dd($queryBuilder);
         $queryBuilder->orderBy('s.dateHeureDebut', 'DESC');
         $query = $queryBuilder->getQuery();
 
