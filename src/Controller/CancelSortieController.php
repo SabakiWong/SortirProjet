@@ -28,13 +28,14 @@ class CancelSortieController extends AbstractController
         LieuRepository $lieuRepository
     ): Response
     {
-        //$sortieid = $request->query->get('sortie.id')
+        $id = $request->query->get('id');
 
         //Instancier l'objet Sortie
         $sortie = new Sortie();
 
         //Récupérer la sortie par son id et l'attribuer à l'objet $sortie
-        $sortieTab = $sortieRepository->findSortieToCancel();
+        $sortieTab = $sortieRepository->findSortieToCancel($id);
+
         $sortie = $sortieTab[0];
 
         //Créer le formulaire et remplir les infos de la sortie

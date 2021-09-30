@@ -76,14 +76,15 @@ class SortieRepository extends ServiceEntityRepository
         return $results;
     }
 
-    public function findSortieToCancel(){
+    public function findSortieToCancel(int $id){
         //Requête QueryBuilder
         $queryBuilder = $this->createQueryBuilder('s');
         $queryBuilder->join("s.campus", "c");
         $queryBuilder->join("s.lieu", "l");
         $queryBuilder->join("l.ville", "v");
         $queryBuilder->addSelect('c', 'l', 'v');
-        $queryBuilder->where("s.id = 3");
+        $queryBuilder->where("s.id = :id");
+        $queryBuilder->setParameter('id', $id);
         $query = $queryBuilder->getQuery();
         return $query->getResult();
 

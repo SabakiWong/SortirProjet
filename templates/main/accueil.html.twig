@@ -38,7 +38,8 @@
                         <td>{{ sortie.etat.libelle }}</td>
                         <td>Oui</td> {# todo: dynamiser la liste #}
                         <td>{{ sortie.organisateur.nom }}</td>
-                        <td><a href="#afficherUneSortie">Afficher</a></td>
+                        <td><a href="#afficherUneSortie">Afficher</a> -
+                            <a href="{{ path('cancel_sortie', {'id' : sortie.id}) }}">Annuler</a> </td>
                     </tr>
                 {% endfor %}
                 </tbody>
