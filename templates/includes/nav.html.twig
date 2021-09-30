@@ -6,17 +6,12 @@
         <ul class="menu">
             <li><a href="{{ path('main_accueil') }}" title="Accueil">Accueil</a></li>
 
-            {# todo: Comment vérifier que l'utilisateur a bien le rôle d'organisateur? #}
-{#            {% set rolesUser = app.user.roles %}#}
-
-{#            {% if ['ROLE_ORGANISATEUR'] in rolesUser %}#}
-{#                <li><a href="{{ path('sortie_create') }}" title="villes">Créer une sortie</a></li>#}
-{#            {% endif %}#}
-
-
             {% if app.user %}
-                <li><a href="#" title="villes">Villes</a></li>
-                <li><a href="#" title="campus">Campus</a></li>
+
+                {% if 'ROLE_ADMIN' in app.user.roles%}
+                    <li><a href="#" title="villes">Villes</a></li>
+                    <li><a href="#" title="campus">Campus</a></li>
+                {% endif %}
                 <li><a href="{{ path('profil') }}" title="profil">Mon profil</a></li>
                 <li><a href="{{ path('app_logout') }}" title="déconnexion">Se déconnecter</a></li>
             {% else %}

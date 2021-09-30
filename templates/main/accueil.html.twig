@@ -6,7 +6,9 @@
 {% block body %}
     <section id="date-et-participant">
         <p>Date du jour: {{ "now"|date("d/m/Y", "Europe/Paris") }}</p>
+        {% if(app.user) %}
         <p>Participant: {{ app.user.nom}} </p>
+        {% endif %}
     </section>
 
 
@@ -48,7 +50,11 @@
     </form>
 
     <section id="button-creation-sortie">
-        <button><a href="{{ path('sortie_create') }}">Créer une sortie</a></button>
+        {% if app.user %}
+            {% if 'ROLE_ORGANISATEUR' in app.user.roles%}
+                <button><a href="{{ path('sortie_create') }}">Créer une sortie</a></button>
+            {% endif %}
+        {% endif %}
     </section>
 {% endblock %}
 

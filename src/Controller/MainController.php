@@ -24,7 +24,13 @@ class MainController extends AbstractController
          $sorties = $sortieRepository->findBy([],['dateHeureDebut'=>'DESC']);
 
          //Je récupère l'user en session
-         //$user = new User();
+         $user = new Utilisateur();
+         if ($this->getUser()) {
+             $user = $this->getUser();
+         }
+         else {
+             $user->setNom("Utilisateur anonyme");
+         }
 
         //Traitement de la recherche filtrée
 
@@ -35,7 +41,7 @@ class MainController extends AbstractController
          //dd($infoRecherche);
 
          //Je crée une variable qui va récupérer
-         $listeFiltree = $sortieRepository->findSortie($infoRecherche);
+         $listeFiltree = $sortieRepository->findSortie($infoRecherche, $user);
 
 
          //On renvoie nos résultats au fichier twig

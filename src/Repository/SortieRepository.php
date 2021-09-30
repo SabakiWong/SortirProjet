@@ -39,16 +39,18 @@ class SortieRepository extends ServiceEntityRepository
      * Cette fontction récupère les sorties reliées à une recherche
      * @return Sortie[]
      */
-    public function findSortie(InfoRecherche $infoRecherche) : array {
+    public function findSortie(InfoRecherche $infoRecherche, Utilisateur $user) : array {
 
         $queryBuilder = $this->createQueryBuilder('s'); //Je passe l'alias de l'entité
 
         $queryBuilder->select('s');
 
         //Filtrage par campus
-        $queryBuilder = $queryBuilder
-            ->andWhere('s.campus = :idCampus')
-            ->setParameter('idCampus', $infoRecherche->campus);
+        if ($infoRecherche->campus != 0) {
+            $queryBuilder = $queryBuilder
+                ->andWhere('s.campus = :idCampus')
+                ->setParameter('idCampus', $infoRecherche->campus);
+        }
 
         //Si l'utilisateur rentre quelquechose dans la barre de recherche
         if (!empty($infoRecherche->motCle)) {
@@ -60,12 +62,26 @@ class SortieRepository extends ServiceEntityRepository
         //Si l'utilisateur coche la case d'organisateur
         if ($infoRecherche->estOrganisateur == true) {
 
-            //$user->getId(); Utilisateur $user
+            $queryBuilder = $queryBuilder
+                ->andWhere('s.organisateur = :idUser')
+                ->setParameter('idUser', $user->getId());
+        }
+
+        //Si l'utilisateur coche la case je suis inscrit
+        if ($infoRecherche->estInscrit == true) {
+
+            //Fonctionnalité "S'inscrire" à faire
+        }
+
+        //Si l'utilisateur coche la case sorties passées
+        if ($infoRecherche->estPassee == true) {
 
             $queryBuilder = $queryBuilder
-                ->andWhere('s.campus.id = :idCampus')
-                ->setParameter('idCampus', $infoRecherche->campus);
+                ->andWhere('s.dateHeureDebut <= :now')
+                ->setParameter('now', (new \DateTime())->format('Y-m-d H:i:s'));
         }
+
+
         //dd($queryBuilder);
         $queryBuilder->orderBy('s.dateHeureDebut', 'DESC');
         $query = $queryBuilder->getQuery();

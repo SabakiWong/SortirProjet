@@ -42,6 +42,8 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
 
-        # - { path: ^/create, roles: ROLE_ORGANISATEUR } #todo: Fontionnalité testée. Avant d'enlever le commentaire demander à chacun de créer un utilisateur avec le rôle d'organisateur.
+         - { path: ^/create, roles: ROLE_ORGANISATEUR }
+
+         - { path: ^/cancel, roles: ROLE_ORGANISATEUR }
 
          - { path: ^/profil, roles: ROLE_USER }

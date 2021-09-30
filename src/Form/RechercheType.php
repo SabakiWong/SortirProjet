@@ -23,9 +23,10 @@ class RechercheType extends AbstractType
                 'multiple' =>false,
                 'required' => true,
                 'choices' => [
-                    'Saint-Herblain' => 1,
-                    '22222' => 2,
-                    '33333' => 3, //todo: Changer les noms des campus
+                    'Tous les campus' => 0,
+                    'SAINT HERBLAIN' => 1,
+                    'CHARTRES DE BRETAGNE' => 2,
+                    'LA ROCHE SUR YON' => 3, 
 
                 ]
             ])
