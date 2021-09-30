@@ -53,7 +53,7 @@
     color: green;
 }
 
-/*Message falsh styling*/
+/*Message flash styling*/
 .flash{
     font-weight: bold;
     font-size: 20px;
@@ -68,11 +68,16 @@
     background-color: green;
 }
 
+.flash-error{
+    background-color: green;
+}
+
 /*Section styling*/
 section{
     padding : 100px 0;
     font-family: sans-serif;
 }
+
 section h1{
     position: relative;
     text-align: center;
@@ -108,26 +113,29 @@ label{
     font-weight : 300;
 }
 
-
 #sortie_nom{
     margin-left: 105px;
 }
+
 #sortie_duree{
     margin-left: 154px;
 }
+
 #sortie_dateLimiteInscription{
     margin-left: 25px;
 }
+
 #sortie_nbInscriptionsMax{
     margin-left: 81px;
 }
+
 #sortie_infosSortie{
     margin-left: 70px;
 }
+
 #sortie_lieu{
     margin-left: 50px;
 }
-
 
 .button{
     margin-top: 230px;
@@ -163,4 +171,51 @@ label{
     text-decoration : none;
     border-radius:6px;
 
+}
+
+/*Page Annulation de sortie styling*/
+.label{
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+    font-family: sans-serif;
+    font-size: 20px;
+}
+
+.motif{
+    display: flex;
+    justify-content: center;
+}
+
+.motif label{
+    font-size: 20px;
+    display: flex;
+}
+
+.motif textarea{
+    width: 300px;
+    height: 150px;
+    display: flex;
+    position: relative;
+    left: 70px;
+    top: -25px;
+}
+
+.buttonAnnulerSortie{
+    margin-left: 37%;
+}
+
+.buttonAnnulerSortie input{
+    width: 20%;
+    padding: 10px;
+    margin: 15px auto;
+    cursor:pointer;
+    border:0;
+    background-color: green;
+    color:white;
+    font-family: sans-serif;
+    font-size: 20px;
+    font-weight : 300;
+    text-decoration : none;
+    border-radius:6px;
 }

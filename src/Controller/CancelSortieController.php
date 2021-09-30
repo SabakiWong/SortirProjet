@@ -7,6 +7,7 @@ use App\Entity\Sortie;
 use App\Entity\Utilisateur;
 use App\Form\AnnulerSortieType;
 use App\Repository\EtatRepository;
+use App\Repository\LieuRepository;
 use App\Repository\SortieRepository;
 use App\Repository\UtilisateurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,26 +24,29 @@ class CancelSortieController extends AbstractController
         Request $request,
         EtatRepository $etatRepository,
         UtilisateurRepository $utilisateurRepository,
-        SortieRepository $sortieRepository
+        SortieRepository $sortieRepository,
+        LieuRepository $lieuRepository
     ): Response
     {
-        //Récupérer la sortie par son id et l'attribuer à l'objet $sortie
+        //$sortieid = $request->query->get('sortie.id')
+
+        //Instancier l'objet Sortie
         $sortie = new Sortie();
-      //  $idSortie = $sortie->getId();
-        $sortie = $sortieRepository->findOneBy(['id'=>1]);
+
+        //Récupérer la sortie par son id et l'attribuer à l'objet $sortie
+        $sortieTab = $sortieRepository->findSortieToCancel();
+        $sortie = $sortieTab[0];
 
         //Créer le formulaire et remplir les infos de la sortie
         $form = $this->createForm(AnnulerSortieType::class, $sortie);
-        //$sortie->setNom($sortie->getNom());
-        //$sortie->setDateHeureDebut($sortie->getDateHeureDebut());
-        //$sortie->setCampus($sortie->getCampus());
-        //$sortie->setLieu($sortie->getLieu());
 
+        //Récupérer la requête HTTP
         $form->handleRequest($request);
 
+        //Condition si le formulaire est soumis & validé
         if ($form->isSubmitted() && $form->isValid()) {
 
-            //Récupération de l'id de l'utilisateur connecté
+            //Récupération de l'id de l'utilisateur connecté en commençant par instancier l'objet
             $utilisateur = new Utilisateur();
             $idUser = $this->getUser()->getId();
 
@@ -53,6 +57,7 @@ class CancelSortieController extends AbstractController
                 $etat = $etatRepository->findOneBy(['id' => 6]);
                 $sortie->setEtat($etat);
 
+                //Enregistrement dans la base de données
                 $manager = $this->getDoctrine()->getManager();
                 $manager->persist($sortie);
                 $manager->flush();
@@ -64,7 +69,6 @@ class CancelSortieController extends AbstractController
                 $this->addFlash('error', 'La sortie ne peut être annulée que par son organisateur !');
             }
         }
-
             return $this->render('cancel_sortie/cancel.html.twig', [
                 'form' => $form->createView(),
                 'sortie'=>$sortie
