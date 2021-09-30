@@ -18,8 +18,8 @@ class AnnulerSortieType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('infosSortie', TextareaType::class, [
-                'label'=>'Description et infos :'
+            ->add('motif', TextareaType::class, [
+                'label'=>'Motifs :'
             ])
 
         ;

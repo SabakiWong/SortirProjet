@@ -10,17 +10,17 @@
                 {{ form_start(form) }}
                 <p class="label">Nom de la sortie : {{ sortie.nom }}</p>
                 <p class="label">Date de la sortie : {{ sortie.dateHeureDebut|date("d/m/Y") }}</p>
-                <p class="label">Campus : {#  {{ sortie.campus }} #}</p>
-                <p class="label">Lieu : {#{{ sortie.lieu }}#}</p>
+                <p class="label">Campus : {{ sortie.campus.nom }}</p>
+                <p class="label">Lieu : {{ sortie.lieu.nom }}, {{ sortie.lieu.rue }}, {{ sortie.lieu.ville.codePostal }}</p>
+                <div class="motif"> {{ form_row(form.motif) }}</div>
 
-                {# {{ form_row(form.infosSortie) }}#}
-
-                <div class="button">
+                <div class="buttonAnnulerSortie">
                     <input type="submit" value="Enregistrer">
                     <input type="reset" value="Annuler">
                 </div>
                 {{ form_end(form) }}
             </div>
+
             {# read and display all flash messages #}
             {% for label, messages in app.flashes %}
                 {% for message in messages %}
