@@ -9,50 +9,10 @@
         <p>Participant: {{ app.user.nom}} </p>
     </section>
 
-    <section>
-        {% include 'sortie/filtre.html.twig' %}
-    </section>
+
+    {% include 'sortie/filter.html.twig' %}
 
     <form action="" method="get">
-        <section id="recherche">
-
-            <div class="div-filtre">
-                <h2>Filtrer les sorties</h2>
-                <div id="liste-campus-div">
-                    <label for="liste-campus">Campus:</label>
-                    <select name="campus" id="liste-campus">
-                        <option value="1">Saint Herblain</option>
-                        <option value="1">222222</option>
-                        <option value="1">333333</option>
-                    </select>
-                </div>
-
-                <div id="search-bar-div">
-                    <label for="search-bar">Le nom de la sortie contient</label>
-                    <input type="text" name="search" id="search-bar">
-                </div>
-
-                <div id="dates_div">
-                    <label for="date-debut">Entre</label>
-                    <input type="datetime-local" name="dateDebut" id="date-debut">
-
-                    <label for="date-fin">et</label>
-                    <input type="datetime-local" name="dateFin" id="date-fin">
-                </div>
-            </div>
-
-
-            <div id="checkbox_div">
-                <input type="checkbox">
-                <label for="">Sorties dont je suis l'organisateur/trice</label>
-                <input type="checkbox">
-                <label for="">Sorties auxquelles je suis inscrit/e</label>
-                <input type="checkbox">
-                <label for="">Sorties passées</label>
-            </div>
-
-            <button type="submit">Rechercher</button>
-        </section>
 
         <section id="tableau-sorties">
             <table id="liste-sorties">

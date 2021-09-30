@@ -23,15 +23,24 @@ class MainController extends AbstractController
          //On récupère les sorties par ordre chronologique
          $sorties = $sortieRepository->findBy([],['dateHeureDebut'=>'DESC']);
 
+         //Je récupère l'user en session
+         //$user = new User();
+
         //Traitement de la recherche filtrée
 
          //Je crée un objet qui va stocker mes infos de recherche
          $infoRecherche = new InfoRecherche();
          $form = $this->createForm(RechercheType::class, $infoRecherche);
+         $form->handleRequest($request);
+         //dd($infoRecherche);
+
+         //Je crée une variable qui va récupérer
+         $listeFiltree = $sortieRepository->findSortie($infoRecherche);
+
 
          //On renvoie nos résultats au fichier twig
          return $this->render('main/accueil.html.twig', [
-             'sorties'=>$sorties,
+             'sorties'=>$listeFiltree,
              'form' => $form->createView()
          ]);
      }

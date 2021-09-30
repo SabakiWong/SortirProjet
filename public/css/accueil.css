@@ -1,5 +1,11 @@
+
+
 #recherche {
     display: flex;
+    flex-direction: column;
+}
+#titre_filtre {
+    width: 100%;
 }
 
 .div-filtre {
