@@ -43,7 +43,6 @@ class MainController extends AbstractController
          //Je crée une variable qui va récupérer
          $listeFiltree = $sortieRepository->findSortie($infoRecherche, $user);
 
-
          //On renvoie nos résultats au fichier twig
          return $this->render('main/accueil.html.twig', [
              'sorties'=>$listeFiltree,

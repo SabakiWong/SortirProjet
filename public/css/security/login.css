@@ -33,12 +33,13 @@ form {
     text-align: end;
 }
 
-input {
-
+.alert-danger {
+    font-family: sans-serif;
+    color: red;
 }
 
 #bas_formulaire {
-    display: flex; /*todo: fucking vérifier pourquoi n'est pas associé */
+    display: flex;
 }
 
 #remember_element {

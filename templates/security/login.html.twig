@@ -7,7 +7,7 @@
 <form method="post">
     <div id="login_form">
         {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            <div class="alert alert-danger">Votre identifiant ou mot de passe sont incorrects. Veuillez réessayer</div>
         {% endif %}
 
         {% if app.user %}
@@ -29,16 +29,6 @@
 
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-        {#
-            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-            See https://symfony.com/doc/current/security/remember_me.html
-
-            <div class="checkbox mb-3">
-                <label>
-                    <input type="checkbox" name="_remember_me"> Remember me
-                </label>
-            </div>
-        #}
 
         <div id="bas_formulaire">
             <button type="submit">Se connecter</button>

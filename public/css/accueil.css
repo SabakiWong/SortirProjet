@@ -106,3 +106,8 @@ form {
 #dates_div div label {
     margin-top: 5px;
 }
+
+#pas-de-sorties {
+    text-align: center;
+    color: cadetblue;
+}

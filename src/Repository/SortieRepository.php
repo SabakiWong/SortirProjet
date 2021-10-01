@@ -59,6 +59,16 @@ class SortieRepository extends ServiceEntityRepository
                 ->setParameter('motCle', "%{$infoRecherche->motCle}%");
         }
 
+        //Si l'utilisateur saisit des dates
+        if (!empty($infoRecherche->dateDebut) or !empty($infoRecherche->dateFin)) {
+
+            $queryBuilder = $queryBuilder
+                ->andWhere('s.dateHeureDebut > :dateMin')
+                ->setParameter('dateMin', $infoRecherche->dateDebut)
+                ->andWhere('s.dateLimiteInscription < :dateMax')
+                ->setParameter('dateMax', $infoRecherche->dateFin);
+        }
+
         //Si l'utilisateur coche la case d'organisateur
         if ($infoRecherche->estOrganisateur == true) {
 
@@ -103,29 +113,7 @@ class SortieRepository extends ServiceEntityRepository
         $queryBuilder->setParameter('id', $id);
         $query = $queryBuilder->getQuery();
         return $query->getResult();
-
-
-
-        //Requête DQL
-        //$entityManager = $this->getEntityManager();
-        //$dql = "
-               // SELECT s.nom, s.dateHeureDebut, s.campus, s.lieu, s.motif
-                //FROM App\Entity\Sortie s
-              //  ";
-        //$query = $entityManager->createQuery($dql);
-       // return $query->getResult();
     }
 
 
-    /*
-    public function findOneBySomeField($value): ?Sortie
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
