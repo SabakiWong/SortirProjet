@@ -6,7 +6,12 @@ body {
 }
 
 h1{
+    font-family: sans-serif;
     margin: 1.5em;
+}
+
+label {
+    font-family: sans-serif;
 }
 
 form {
@@ -38,12 +43,34 @@ input {
 
 #remember_element {
     width: 50%;
-}
-button {
-    display: flex;
-    align-self: center;
-    margin-top: 2.5em;
-    width: 50%;
+    margin-top: 5%;
 }
 
-/*todo: détails à travailler après la mise en place de la fonctionnalité se souvenir de moi
+#remember_element label {
+    font-size: 18px;
+    margin-right: 0;
+}
+
+button {
+    display: flex;
+    padding: 10px;
+    margin-top: 2.5em;
+    width: 50%;
+    cursor:pointer;
+    border:0;
+    background-color: green;
+    color:white;
+    font-family: sans-serif;
+    font-size: 20px;
+    font-weight : 300;
+    text-decoration : none;
+    border-radius:6px;
+    justify-content: center;
+}
+
+#bas_formulaire button {
+    width: 40%;
+    margin-left: 5%;
+    margin-top: 5%;
+    height: 40px;
+}

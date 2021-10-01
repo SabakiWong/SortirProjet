@@ -19,6 +19,7 @@ class RechercheType extends AbstractType
 
         $builder
             ->add('campus', ChoiceType::class, [
+                'label' => 'Campus:',
                 'expanded' => false,
                 'multiple' =>false,
                 'required' => true,
@@ -39,15 +40,15 @@ class RechercheType extends AbstractType
             ])
             ->add('dateDebut', \Symfony\Component\Form\Extension\Core\Type\DateType::class, [
                 'label' => 'Entre: ',
-                'widget' => 'choice',
-                //'input' => 'datetime_immutable',
-                'required' => true
+                'html5' => true,
+                'widget' => 'single_text',
+                'required' => false
             ])
             ->add('dateFin', \Symfony\Component\Form\Extension\Core\Type\DateType::class, [
                 'label' => 'et: ',
-                'widget' => 'choice',
-                //'input' => 'datetime_immutable',
-                'required' => true
+                'html5' => true,
+                'widget' => 'single_text',
+                'required' => false
             ])
             ->add('estOrganisateur', CheckboxType::class, [
                 'label'=> 'Sorties dont je suis l\'organisateur/trice: ',

@@ -11,19 +11,19 @@
         {% endif %}
 
         {% if app.user %}
-            <div class="mb-3">
+            <div>
                 You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
             </div>
         {% endif %}
 
-        <h1 class="h3 mb-3 font-weight-normal">Bienvenue</h1>
+        <h1>Bienvenue</h1>
 
         <div class="form_element">
-            <label for="inputEmail">Email</label>
+            <label for="inputEmail">Identifiant: </label>
             <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
         </div>
         <div class="form_element">
-            <label for="inputPassword">Mot de passe</label>
+            <label for="inputPassword">Mot de passe:</label>
             <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
         </div>
 
@@ -41,7 +41,7 @@
         #}
 
         <div id="bas_formulaire">
-            <button class="btn btn-lg btn-primary" type="submit">Sign in</button>
+            <button type="submit">Se connecter</button>
 
             <div class="form_element" id="remember_element">
                 <input type="checkbox" id="remember_me" name="_remember_me" checked/>
